@@ -34,7 +34,8 @@ class VCloudAPIClient(object):
         Create a new instance of the vCloud API client, optionally specifying the API root URL
         """
 
-        self._session = requests.Session(headers={'accept': VCLOUD_MIME})
+        self._session = requests.Session()
+        self._session.headers.update({'accept': VCLOUD_MIME})
         self.token = envget('auth_token')
 
         if root is not None:
@@ -56,6 +57,7 @@ class VCloudAPIClient(object):
         """
         Make and error check a request in the current session
         """
+        kwargs['verify'] = False
         res = self._session.request(method, url, *args, **kwargs)
         if _raise:
             _custom_raise_for_status(res)
@@ -209,5 +211,3 @@ def _custom_raise_for_status(res):
         res.raise_for_status()
     except requests.RequestException as err:
         raise APIError(err)
-
-

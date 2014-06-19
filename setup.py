@@ -6,7 +6,7 @@ from vcloudtools import __version__
 requirements = [
     'argh==0.17.2',
     'lxml==3.0.1',
-    'requests==0.14.2',
+    'requests',
     'simplejson==2.6.2',
 ]
 
